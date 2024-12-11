@@ -13,23 +13,20 @@ public class Hooks {
     private ExtentTest test;
 
     @Before
-    public void setUp(Scenario scenario) {
-        // Initialize ExtentReports and create a test entry
-        extent = ExtentReportManager.getInstance();
-        test = extent.createTest(scenario.getName());
-
-        // Add a log entry for test start
-        test.log(Status.INFO, "Starting scenario: " + scenario.getName());
+    public void setup(Scenario scenario) {
+        // Set up the report with the scenario name
+        ExtentReportManager.setupReport(scenario.getName());
+        ExtentReportManager.logInfo("Starting scenario: " + scenario.getName());
     }
 
     @After
-    public void tearDown(Scenario scenario) {
-        // Capture screenshot if scenario fails
+    public void teardown(Scenario scenario) {
+        // Log scenario status
         if (scenario.isFailed()) {
-            test.log(Status.FAIL, "Scenario failed: " + scenario.getName());
+            ExtentReportManager.logFail("Scenario failed: " + scenario.getName());
         } else {
-            test.log(Status.PASS, "Scenario passed: " + scenario.getName());
+            ExtentReportManager.logPass("Scenario passed: " + scenario.getName());
         }
-        extent.flush();
+        ExtentReportManager.tearDown();
     }
 }
