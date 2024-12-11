@@ -49,7 +49,7 @@ public class ExtentReportManager {
 
             try {
                 // Validate status code using assertion
-                Assert.assertEquals(response.getStatusCode(), expectedStatusCode);
+                Assert.assertEquals(expectedStatusCode, response.getStatusCode());
                 test.pass("Request was successful with expected status code: " + expectedStatusCode);
             } catch (AssertionError e) {
                 // Log assertion failure and rethrow exception for test framework
