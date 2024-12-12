@@ -64,4 +64,16 @@ public class ExtentReportManager {
             extent.flush();
         }
     }
+
+    public static Response logAndValidate(Response response, int expectedStatusCode) {
+        // Log response details in console
+        System.out.println("=== Response Details ===");
+        System.out.println("Response Status Code: " + response.getStatusCode());
+        System.out.println("Response Body: " + response.getBody().asPrettyString());
+
+        // Log response details in the report and validate
+        ExtentReportManager.logResponseDetails(response, expectedStatusCode);
+
+        return response; // Return response for further use
+    }
 }
