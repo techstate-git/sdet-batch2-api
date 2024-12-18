@@ -8,6 +8,9 @@ import lombok.Data;
 @JsonIgnoreProperties
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetBookingResponse {
+    private int bookingid;
+    private BookingDetails booking;
+
     private String firstname;
     private String lastname;
     private int totalprice;
@@ -22,18 +25,29 @@ public class GetBookingResponse {
         private String checkin;
         private String checkout;
     }
+
+    @Data
+    @JsonIgnoreProperties
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class BookingDetails {
+        private String firstname;
+        private String lastname;
+        private int totalprice;
+        private boolean depositpaid;
+        private BookingDates bookingdates;
+        private String additionalneeds;
+    }
 }
 
-/*
-    {
-        "firstname" : "Jim",
-        "lastname" : "Brown",
-        "totalprice" : 111,
-        "depositpaid" : true,
-        "bookingdates" : {
-                "checkin" : "2018-01-01",
-                "checkout" : "2019-01-01"
-            },
-        "additionalneeds" : "Breakfast"
-     }
-*/
+
+
+
+
+
+
+
+
+
+
+
+

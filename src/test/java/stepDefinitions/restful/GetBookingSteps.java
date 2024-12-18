@@ -1,21 +1,27 @@
 package stepDefinitions.restful;
 
+import fakerestapi.response.AuthorsResponse;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import restful.response.AuthorizationResponse;
 import restful.response.GetBookingResponse;
 
 import java.util.Map;
 
-import static restful.request.GetBookingRequests.createBooking;
-import static restful.request.GetBookingRequests.getAllBookings;
+import static restful.request.AuthorizationRequests.generateToken;
+import static restful.request.GetBookingRequests.*;
 
 public class GetBookingSteps {
     Response response;
     GetBookingResponse getBookingResponse = new GetBookingResponse();
     GetBookingResponse.BookingDates bookingDates = new GetBookingResponse.BookingDates();
+    AuthorizationResponse authorizationResponse = new AuthorizationResponse();
+
+    static int createdBookingID;
+    private String token;
 
     @Given("the user is get all bookings")
     public void the_user_is_get_all_bookings() {
@@ -49,6 +55,47 @@ public class GetBookingSteps {
 
     @Then("the response body should contain a bookingid field")
     public void the_response_body_should_contain_a_bookingid_field() {
+        getBookingResponse = response.as(GetBookingResponse.class);
+        createdBookingID = getBookingResponse.getBookingid();
+        Assert.assertNotNull("Booking ID is null", createdBookingID);
+    }
 
+    @Then("the user is get booking details by ID")
+    public void the_user_is_get_booking_details_by_id() {
+        response = getBookingByID(createdBookingID);
+    }
+
+    @Then("the user is verified firstname {string} and lastname {string}")
+    public void the_user_is_verified_firstname_and_lastname(String firstName, String lastName) {
+        getBookingResponse = response.as(GetBookingResponse.class);
+
+        Assert.assertEquals(getBookingResponse.getFirstname(), firstName);
+        Assert.assertEquals(getBookingResponse.getLastname(), lastName);
+    }
+
+    @Given("the user generated one time token")
+    public void the_user_generated_one_time_token() {
+        authorizationResponse.setUsername("admin");
+        authorizationResponse.setPassword("password123");
+        response = generateToken(authorizationResponse);
+
+        authorizationResponse = response.as(AuthorizationResponse.class);
+        token = authorizationResponse.getToken();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

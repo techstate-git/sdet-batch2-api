@@ -27,6 +27,15 @@ public class GetBookingRequests {
                 .thenReturn();
         return response;
     }
+
+    public static Response getBookingByID(int id) {
+        Response response = RestAssured.given()
+                .log().all()
+                .when()
+                .get(baseURI + id)
+                .thenReturn();
+        return response;
+    }
 }
 
 
