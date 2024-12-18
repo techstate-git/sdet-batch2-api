@@ -1,5 +1,6 @@
 package fakerestapi.requests;
 
+import fakerestapi.response.ActivitiesResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -27,4 +28,31 @@ public class ActivitiesRequest {
                 .thenReturn();
         return response;
     }
+
+    public static Response postActivity(ActivitiesResponse activities) {
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(activities)
+                .log().all()
+                .when()
+                .post(base_URI + endpoint)
+                .thenReturn();
+        return response;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
