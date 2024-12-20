@@ -8,13 +8,13 @@ import lombok.Data;
 @JsonIgnoreProperties
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetBookingResponse {
-    private int bookingid;
+    private Integer bookingid;
     private BookingDetails booking;
 
     private String firstname;
     private String lastname;
-    private int totalprice;
-    private boolean depositpaid;
+    private Integer totalprice;
+    private Boolean depositpaid;
     private BookingDates bookingdates;
     private String additionalneeds;
 
@@ -32,8 +32,8 @@ public class GetBookingResponse {
     public static class BookingDetails {
         private String firstname;
         private String lastname;
-        private int totalprice;
-        private boolean depositpaid;
+        private Integer totalprice;
+        private Boolean depositpaid;
         private BookingDates bookingdates;
         private String additionalneeds;
     }

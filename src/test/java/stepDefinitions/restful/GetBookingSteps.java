@@ -72,16 +72,6 @@ public class GetBookingSteps {
         Assert.assertEquals(getBookingResponse.getFirstname(), firstName);
         Assert.assertEquals(getBookingResponse.getLastname(), lastName);
     }
-
-    @Given("the user generated one time token")
-    public void the_user_generated_one_time_token() {
-        authorizationResponse.setUsername("admin");
-        authorizationResponse.setPassword("password123");
-        response = generateToken(authorizationResponse);
-
-        authorizationResponse = response.as(AuthorizationResponse.class);
-        token = authorizationResponse.getToken();
-    }
 }
 
 
