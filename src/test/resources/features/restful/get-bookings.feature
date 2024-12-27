@@ -23,3 +23,15 @@ Feature: Create a new booking using the Booking API
 
   Scenario: Generate Authorization Token
     Given the user generated one time token
+
+  Scenario: Successfully create a new booking with ObjectMapper
+    Given the request body with ObjectMapper contains the following booking details:
+      | firstname       | BK         |
+      | lastname        | Sultan     |
+      | totalprice      | 111        |
+      | depositpaid     | true       |
+      | checkin         | 2018-01-01 |
+      | checkout        | 2019-01-01 |
+      | additionalneeds | Breakfast  |
+    When I send a POST request to create a booking with map
+    Then I validate the response

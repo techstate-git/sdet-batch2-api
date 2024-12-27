@@ -36,6 +36,17 @@ public class GetBookingRequests {
                 .thenReturn();
         return response;
     }
+
+    public static Response createBookingWithObjectMapper(String body) {
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .log().all()
+                .when()
+                .post(baseURI)
+                .thenReturn();
+        return response;
+    }
 }
 
 
